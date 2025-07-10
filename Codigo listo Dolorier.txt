@@ -1,0 +1,87 @@
+productos = {"8475HD":["HP",15.6,"8GB","DD","1T","Intel Core i5","Nvidia GTX 1050"],
+             "2175HD":["Acer",14,"4GB","SSD","512GB","Intel Core i5","Nvidia GTX 1050"],
+             "JjfFHD":["Asus",14,"16GB","SSD","256GB","Intel Core i7","Nvidia RTX 2080Ti"],
+             "fgdxFHD":["HP",15.6,"12GB","DD","1T","Intel Core i3","integrada"],
+             "GF75HD":["Asus",15.6,"12GB","DD","1T","Intel Core i7","Nvidia GTX 1050"],
+             "123FHD":["Acer",14,"6GB","DD","1T","AMD Ryzen 5","integrada"],
+             "342FHD":["Acer",15.6,"8GB","DD","1T","AMD Ryzen 7","Nvidia GTX 1050"],
+             "UWU131HD":["Dell",15.6,"8GB","DD","1T","AMD Ryzen 3","Nvidia GTX 1050"]
+             }
+
+stock = {"8475HD": [387990,10],
+         "2175HD": [32799,4],
+         "JjfFHD": [424990,1],
+         "fgdxFHD": [664990,21],
+         "123FHD":[290890,32],
+         "342FHD": [444990,7],
+         "GF75HD": [749990,2],
+         "UWU131HD": [349990,1],
+         "FS1230HD": [249990,0]
+         }
+
+def stock_marca(marca):
+    encontrado = False
+    for producto, info_s in productos.items():
+        if info_s[0].lower() == marca.lower():
+            pr, cant = stock[producto]
+            print("El stock por modelo es",marca.upper(),producto,"Stock:",cant)
+            encontrado = True
+        if not encontrado:
+            print("La marca no se ha encontrado")
+            break
+
+def busqueda_precio(pr1,pr2):
+    lista_note = []
+    for producto, info_pr in stock.items():
+        precio = info_pr[0]
+        if pr1 <= precio <= pr2:
+             lista_note.append(producto)
+    if lista_note:
+        print(f"Notebooks encontrados dentro del rango {lista_note}")
+    else:
+        print("No hay notebooks dentro del rango de precios ")
+
+def eliminar_producto():
+    producto = input("Ingrese el codigo del producto a eliminar: ").strip()
+    if producto in productos:
+        del productos[producto]
+        del stock[producto]
+        print("El producto ha sido eliminado ")
+    else:
+        print("El producto no se ha encontra")
+
+def menu():
+    while True:
+        print("*** MENU PRINCIPAL ***")
+        print("\t1. Stock marca")
+        print("\t2. Búsqueda por precio")
+        print("\t3. Eliminar producto")
+        print("\t4. Salir")
+
+        opcion = input("\t\t Seleccione una opcion ")
+
+        if opcion == "1":
+            marca = input(" Ingrese la marca del producto: ")
+            stock_marca(marca)
+        elif opcion == "2":
+                while True:
+                    try:
+                        pr1 = int(input("Ingrese el precio minimo: "))
+                        pr2 = int(input("Ingrese el valor maximo: "))
+                        break
+                    except ValueError:
+                         print("Debe ingresar valores enteros!!")
+                busqueda_precio(pr1,pr2)
+                
+        elif opcion == "3":
+            eliminar_producto()
+        elif opcion =="4":
+            print("Programa finalizado.")
+            break
+        else:
+            print("Debe seleccionar una opción válida!!")
+            
+
+
+if __name__== "__main__":
+    menu()
